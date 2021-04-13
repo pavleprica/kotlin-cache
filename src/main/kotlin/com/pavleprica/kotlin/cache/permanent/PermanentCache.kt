@@ -1,4 +1,4 @@
-package com.pavleprica.kotlin.cache.impl
+package com.pavleprica.kotlin.cache.permanent
 
 import com.pavleprica.kotlin.cache.Cache
 import java.util.*
