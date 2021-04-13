@@ -41,8 +41,8 @@
 
     <properties>
         <kotlin.version>1.4.32</kotlin.version>
-        <maven.compiler.source>13</maven.compiler.source>
-        <maven.compiler.target>13</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
 
         <mockito.inline.version>3.8.0</mockito.inline.version>
         <kotest.extensions>4.4.3</kotest.extensions>
