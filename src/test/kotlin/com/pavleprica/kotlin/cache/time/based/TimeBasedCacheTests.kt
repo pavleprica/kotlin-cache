@@ -1,5 +1,6 @@
 package com.pavleprica.kotlin.cache.time.based
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.longs.shouldBeExactly
 import io.kotest.matchers.shouldBe
@@ -143,6 +144,21 @@ class TimeBasedCacheTests: FunSpec() {
 
                     val fetchedItem = cache[mockItem.first]
                     fetchedItem.isEmpty shouldBe true
+                }
+
+            }
+
+            context("When using expiration time with below 0") {
+
+                test("Should throw error on overriding default") {
+                    shouldThrow<IllegalArgumentException> { cache.setDefaultExpirationTime(-5) }
+                }
+
+                test("Should throw error on setting with custom expiration time below 0") {
+                    val mockItem = createMockItem()
+                    shouldThrow<IllegalArgumentException> {
+                        cache.set(mockItem.first, CustomTimeBasedValue(mockItem.second, -5))
+                    }
                 }
 
             }
