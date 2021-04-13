@@ -23,6 +23,21 @@
         <url>https://github.com/pavleprica/kotlin-cache</url>
         <tag>HEAD</tag>
     </scm>
+    <developers>
+        <developer>
+            <name>Pavle Prica</name>
+            <url>https://github.com/pavleprica</url>
+            <email>pavle.prica@telqtele.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>kotlin-cache license</name>
+            <url>
+                https://github.com/pavleprica/kotlin-cache/blob/master/LICENSE
+            </url>
+        </license>
+    </licenses>
 
     <properties>
         <kotlin.version>1.4.32</kotlin.version>
