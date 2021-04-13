@@ -31,3 +31,7 @@ interface TimeBasedCache<T, E>: Cache<T, E> {
     operator fun set(key: T, value: CustomTimeBasedValue<E>)
 
 }
+
+val ONE_MINUTE = 60L * 1000L
+
+val ONE_HOUR = ONE_MINUTE * 60
