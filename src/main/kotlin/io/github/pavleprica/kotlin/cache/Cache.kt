@@ -1,4 +1,4 @@
-package com.pavleprica.kotlin.cache
+package io.github.pavleprica.kotlin.cache
 
 import java.util.*
 

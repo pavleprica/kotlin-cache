@@ -1,6 +1,6 @@
-package com.pavleprica.kotlin.cache.permanent
+package io.github.pavleprica.kotlin.cache.permanent
 
-import com.pavleprica.kotlin.cache.Cache
+import io.github.pavleprica.kotlin.cache.Cache
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlin.random.Random

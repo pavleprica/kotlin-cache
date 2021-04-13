@@ -1,4 +1,4 @@
-package com.pavleprica.kotlin.cache.time.based
+package io.github.pavleprica.kotlin.cache.time.based
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>kotlin-cache</artifactId>
-    <groupId>com.pavleprica</groupId>
+    <groupId>io.github.pavleprica</groupId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -224,11 +224,11 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>com.pavleprica</id>
+            <id>io.github.pavleprica</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
         <repository>
-            <id>com.pavleprica</id>
+            <id>io.github.pavleprica</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
             </url>
         </repository>

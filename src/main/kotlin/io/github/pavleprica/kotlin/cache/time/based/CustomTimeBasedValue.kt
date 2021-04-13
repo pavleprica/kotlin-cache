@@ -1,4 +1,4 @@
-package com.pavleprica.kotlin.cache.time.based
+package io.github.pavleprica.kotlin.cache.time.based
 
 /**
  * [CustomTimeBasedValue] is used to add a custom expiration time

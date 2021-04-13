@@ -1,15 +1,11 @@
-package com.pavleprica.kotlin.cache.time.based
+package io.github.pavleprica.kotlin.cache.time.based
 
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.collections.HashMap
 
-/**
- * Short time based cache that will hold the cache for 1 minute
- */
-class ShortTimeBasedCache<T, E>: TimeBasedCache<T, E> {
-
-    private var defaultExpiration = ONE_MINUTE
+class CustomTimeBasedCache<T, E> (
+    private var defaultExpiration: Long
+        ): TimeBasedCache<T, E> {
 
     private val cacheValueMap: ConcurrentHashMap<T, E> = ConcurrentHashMap()
     private val cacheExpirationMap: ConcurrentHashMap<T, Long> = ConcurrentHashMap()
@@ -67,7 +63,6 @@ class ShortTimeBasedCache<T, E>: TimeBasedCache<T, E> {
         cacheExpirationMap[key] = System.currentTimeMillis() + value.expirationTime
         cacheValueMap[key] = value.value
     }
-
 }
 
-inline fun <reified T, reified E> shortTimeBasedCache(): ShortTimeBasedCache<T, E> = ShortTimeBasedCache()
+inline fun <reified T, reified E> customTimeBasedCache(expirationTime: Long): CustomTimeBasedCache<T, E> = CustomTimeBasedCache(expirationTime)

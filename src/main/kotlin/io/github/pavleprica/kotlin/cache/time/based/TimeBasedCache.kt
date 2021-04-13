@@ -1,6 +1,6 @@
-package com.pavleprica.kotlin.cache.time.based
+package io.github.pavleprica.kotlin.cache.time.based
 
-import com.pavleprica.kotlin.cache.Cache
+import io.github.pavleprica.kotlin.cache.Cache
 
 /**
  * [TimeBasedCache] is a expansion of the cache interface.
