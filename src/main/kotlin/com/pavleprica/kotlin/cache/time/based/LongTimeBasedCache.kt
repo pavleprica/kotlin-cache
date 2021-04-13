@@ -1,46 +1,70 @@
 package com.pavleprica.kotlin.cache.time.based
 
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Short time based cache that will hold the cache for 60 minutes
  */
 class LongTimeBasedCache<T, E>: TimeBasedCache<T, E> {
 
-    private val defaultExpiration = ONE_HOUR
+    private var defaultExpiration = ONE_HOUR
+
+    private val cacheValueMap: ConcurrentHashMap<T, E> = ConcurrentHashMap()
+    private val cacheExpirationMap: ConcurrentHashMap<T, Long> = ConcurrentHashMap()
 
     override val size: Int
-        get() = TODO("Not yet implemented")
+        get() = cacheValueMap.size
+
+    override val defaultExpirationTime: Long
+        get() = defaultExpiration
 
     override fun set(key: T, value: E) {
-        TODO("Not yet implemented")
+        cacheExpirationMap[key] = System.currentTimeMillis() + defaultExpiration
+        cacheValueMap[key] = value
     }
 
     override fun get(key: T): Optional<E> {
-        TODO("Not yet implemented")
+        expirationTimeCheckAndClean()
+
+        val value = cacheValueMap[key]
+
+        return if (value != null) Optional.of(value) else Optional.empty()
+    }
+
+    private fun expirationTimeCheckAndClean() {
+        val removeKeyList = mutableListOf<T>()
+        cacheExpirationMap.forEach { (key, time) ->
+            if (System.currentTimeMillis() > time) { cacheValueMap.remove(key); removeKeyList.add(key) }
+        }
+        removeKeyList.forEach { cacheExpirationMap.remove(it) }
     }
 
     override fun remove(key: T) {
-        TODO("Not yet implemented")
+        cacheValueMap.remove(key)
+        cacheExpirationMap.remove(key)
     }
 
     override fun clear() {
-        TODO("Not yet implemented")
+        cacheValueMap.clear()
+        cacheExpirationMap.clear()
     }
 
     override fun isEmpty(): Boolean {
-        TODO("Not yet implemented")
+        return cacheValueMap.isEmpty()
     }
 
-    override val defaultExpirationTime: Long
-        get() = TODO("Not yet implemented")
-
     override fun setDefaultExpirationTime(expirationTime: Long) {
-        TODO("Not yet implemented")
+        require(expirationTime >= 0)
+
+        defaultExpiration = expirationTime
     }
 
     override fun set(key: T, value: CustomTimeBasedValue<E>) {
-        TODO("Not yet implemented")
+        require(value.expirationTime >= 0)
+
+        cacheExpirationMap[key] = System.currentTimeMillis() + value.expirationTime
+        cacheValueMap[key] = value.value
     }
 
 }
