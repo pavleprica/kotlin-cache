@@ -14,4 +14,6 @@ interface Cache<T, E> {
 
     fun clear()
 
+    fun isEmpty(): Boolean
+
 }
