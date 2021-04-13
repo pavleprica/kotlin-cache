@@ -111,7 +111,7 @@ class PermanentCacheTests: FunSpec() {
     }
 
     private fun initCache() {
-        cache = PermanentCache()
+        cache = permanentCache()
     }
 
     private val createMockList: (listSize: Int) -> List<Pair<Int, Int>> = { listSize ->

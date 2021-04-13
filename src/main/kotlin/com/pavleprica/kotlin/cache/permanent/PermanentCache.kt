@@ -1,6 +1,7 @@
 package com.pavleprica.kotlin.cache.permanent
 
 import com.pavleprica.kotlin.cache.Cache
+import com.pavleprica.kotlin.cache.time.based.ShortTimeBasedCache
 import java.util.*
 
 
@@ -33,3 +34,5 @@ class PermanentCache<T, E>: Cache<T, E> {
         return cacheMap.isEmpty()
     }
 }
+
+inline fun <reified T, reified E> permanentCache(): PermanentCache<T, E> = PermanentCache()
