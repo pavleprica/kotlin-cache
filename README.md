@@ -33,14 +33,14 @@ Inside those it can be overridden as well.
 ### Usage
 
 ```kotlin
-// Creates a time based cache of 10 seconds
+// Creates a time based cache of 10 millis
 val cache = customTimeBasedCache<Int, String>(10L)
 
-// Overrides the set default time to 5 seconds.
-// All cache from this point will expire in 5 seconds
+// Overrides the set default time to 5 millis.
+// All cache from this point will expire in 5 millis
 cache.setDefaultExpirationTime(5L)
 
-// This cache only will expire in 100 seconds
+// This cache only will expire in 100 millis
 cache.set(5, CustomTimeBasedValue("Something cool", 100L))
 
 // Other default time based caches
