@@ -4,7 +4,7 @@ import java.util.*
 
 interface Cache<T, E> {
 
-    val size: Long
+    val size: Int
 
     operator fun set(key: T, value: E)
 
