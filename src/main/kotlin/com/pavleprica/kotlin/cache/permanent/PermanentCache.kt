@@ -3,11 +3,12 @@ package com.pavleprica.kotlin.cache.permanent
 import com.pavleprica.kotlin.cache.Cache
 import com.pavleprica.kotlin.cache.time.based.ShortTimeBasedCache
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 
 class PermanentCache<T, E>: Cache<T, E> {
 
-    private val cacheMap: HashMap<T, E> = hashMapOf()
+    private val cacheMap: ConcurrentHashMap<T, E> = ConcurrentHashMap()
 
     override val size: Int
         get() = cacheMap.size

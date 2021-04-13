@@ -9,6 +9,8 @@ class ShortTimeBasedCache<T, E>: TimeBasedCache<T, E> {
 
     private val defaultExpiration = ONE_MINUTE
 
+    private val cacheValueMap: ConcurrentHashMap<T, E> = ConcurrentHashMap()
+    private val cacheExpirationMap: ConcurrentHashMap<T, Long> = ConcurrentHashMap()
     override val size: Int
         get() = TODO("Not yet implemented")
 
