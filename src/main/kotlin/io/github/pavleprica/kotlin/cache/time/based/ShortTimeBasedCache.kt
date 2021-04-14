@@ -1,9 +1,5 @@
 package io.github.pavleprica.kotlin.cache.time.based
 
-import java.util.*
-import java.util.concurrent.ConcurrentHashMap
-import kotlin.collections.HashMap
-
 /**
  * Short time based cache that will hold the cache for 1 minute
  */

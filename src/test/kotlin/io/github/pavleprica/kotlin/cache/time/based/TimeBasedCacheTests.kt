@@ -3,7 +3,6 @@ package io.github.pavleprica.kotlin.cache.time.based
 import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.inspectors.forAll
 import io.kotest.matchers.longs.shouldBeExactly
 import io.kotest.matchers.shouldBe
 import kotlin.random.Random
