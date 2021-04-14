@@ -4,7 +4,7 @@
 
     <artifactId>kotlin-cache</artifactId>
     <groupId>io.github.pavleprica</groupId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <!--  Info  -->
@@ -19,7 +19,7 @@
         <connection>scm:git:git://github.com/pavleprica/kotlin-cache</connection>
         <developerConnection>scm:git:git@github.com:pavleprica/kotlin-cache</developerConnection>
         <url>https://github.com/pavleprica/kotlin-cache</url>
-        <tag>HEAD</tag>
+        <tag>kotlin-cache-1.0.1</tag>
     </scm>
     <developers>
         <developer>
