@@ -1,9 +1,10 @@
 package io.github.pavleprica.kotlin.cache.time.based
 
+import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-class CustomTimeBasedCache<T, E> (
+open class CustomTimeBasedCache<T, E> (
     private var defaultExpiration: Long
         ): TimeBasedCache<T, E> {
 
