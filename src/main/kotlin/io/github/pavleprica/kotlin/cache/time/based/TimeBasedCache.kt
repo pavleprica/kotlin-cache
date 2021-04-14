@@ -1,6 +1,7 @@
 package io.github.pavleprica.kotlin.cache.time.based
 
 import io.github.pavleprica.kotlin.cache.Cache
+import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
 
 /**
  * [TimeBasedCache] is a expansion of the cache interface.
@@ -32,6 +33,6 @@ interface TimeBasedCache<T, E>: Cache<T, E> {
 
 }
 
-val ONE_MINUTE = 60L * 1000L
+const val ONE_MINUTE = 60L * 1000L
 
-val ONE_HOUR = ONE_MINUTE * 60
+const val ONE_HOUR = ONE_MINUTE * 60

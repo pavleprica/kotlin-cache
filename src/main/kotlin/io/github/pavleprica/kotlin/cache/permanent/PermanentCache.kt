@@ -1,7 +1,6 @@
 package io.github.pavleprica.kotlin.cache.permanent
 
 import io.github.pavleprica.kotlin.cache.Cache
-import io.github.pavleprica.kotlin.cache.time.based.ShortTimeBasedCache
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
