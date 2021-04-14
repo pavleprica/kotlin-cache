@@ -3,6 +3,7 @@ package io.github.pavleprica.kotlin.cache.time.based
 import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.longs.shouldBeExactly
 import io.kotest.matchers.shouldBe
 import kotlin.random.Random
@@ -160,6 +161,32 @@ class TimeBasedCacheTests: FunSpec() {
                     shouldThrow<IllegalArgumentException> {
                         cache.set(mockItem.first, CustomTimeBasedValue(mockItem.second, -5))
                     }
+                }
+
+            }
+
+            context("When having multiple items and ordering cache time") {
+
+                test("Should empty first three items") {
+                    val mockItemList = listOf(
+                        createMockItem(),
+                        createMockItem(),
+                        createMockItem(),
+                    )
+
+                    mockItemList.forEachIndexed { i, it ->
+                        cache[it.first + i + 1] = CustomTimeBasedValue(it.second, 2L + i)
+                    }
+
+                    createMockItem().let { cache[it.first] = CustomTimeBasedValue(it.second, 1000L) }
+
+                    Thread.sleep(3)
+
+                    mockItemList.forEachIndexed { i, it ->
+                        cache[it.first + i + 1].isEmpty shouldBe true
+                    }
+
+                    createMockItem().let { cache[it.first].isPresent shouldBe true }
                 }
 
             }

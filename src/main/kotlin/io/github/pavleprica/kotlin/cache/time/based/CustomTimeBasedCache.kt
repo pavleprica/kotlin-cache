@@ -1,6 +1,7 @@
 package io.github.pavleprica.kotlin.cache.time.based
 
 import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
+import io.github.pavleprica.kotlin.cache.model.KeyTimeWrapper
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
@@ -9,7 +10,7 @@ open class CustomTimeBasedCache<T, E> (
         ): TimeBasedCache<T, E> {
 
     private val cacheValueMap: ConcurrentHashMap<T, E> = ConcurrentHashMap()
-    private val cacheExpirationMap: ConcurrentHashMap<T, Long> = ConcurrentHashMap()
+    private val cacheExpirationList: MutableList<KeyTimeWrapper<T>> = mutableListOf()
 
     override val size: Int
         get() = cacheValueMap.size
@@ -18,7 +19,7 @@ open class CustomTimeBasedCache<T, E> (
         get() = defaultExpiration
 
     override fun set(key: T, value: E) {
-        cacheExpirationMap[key] = System.currentTimeMillis() + defaultExpiration
+        cacheExpirationList.add(KeyTimeWrapper(key, System.currentTimeMillis() + defaultExpiration))
         cacheValueMap[key] = value
     }
 
@@ -31,21 +32,29 @@ open class CustomTimeBasedCache<T, E> (
     }
 
     private fun expirationTimeCheckAndClean() {
-        val removeKeyList = mutableListOf<T>()
-        cacheExpirationMap.forEach { (key, time) ->
-            if (System.currentTimeMillis() > time) { cacheValueMap.remove(key); removeKeyList.add(key) }
+        val currentTime = System.currentTimeMillis()
+        cacheExpirationList.sortBy { it.time }
+        val removeList = mutableListOf<KeyTimeWrapper<T>>()
+
+        cacheExpirationList.forEach {
+            if (it.time > currentTime) { return@forEach }
+            if (it.time < currentTime) {
+                removeList.add(it)
+            }
         }
-        removeKeyList.forEach { cacheExpirationMap.remove(it) }
+
+        removeList.forEach { cacheValueMap.remove(it.key) }
+        cacheExpirationList.removeAll { it.time < currentTime }
     }
 
     override fun remove(key: T) {
         cacheValueMap.remove(key)
-        cacheExpirationMap.remove(key)
+        cacheExpirationList.removeAll { it.key == key }
     }
 
     override fun clear() {
         cacheValueMap.clear()
-        cacheExpirationMap.clear()
+        cacheExpirationList.clear()
     }
 
     override fun isEmpty(): Boolean {
@@ -61,7 +70,7 @@ open class CustomTimeBasedCache<T, E> (
     override fun set(key: T, value: CustomTimeBasedValue<E>) {
         require(value.expirationTime >= 0)
 
-        cacheExpirationMap[key] = System.currentTimeMillis() + value.expirationTime
+        cacheExpirationList.add(KeyTimeWrapper(key, System.currentTimeMillis() + value.expirationTime))
         cacheValueMap[key] = value.value
     }
 }
