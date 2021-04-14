@@ -51,3 +51,21 @@ val shortCache = shortTimeBasedCache()
 // One hour
 val longCache = longTimeBasedCache()
 ```
+
+## How to include it in the project
+
+Just add the maven dependency in your pom file.
+
+```xml
+<dependency>
+  <groupId>io.github.pavleprica</groupId>
+  <artifactId>kotlin-cache</artifactId>
+  <version>1.0</version>
+</dependency>
+```
+
+Or for Gradle Groovy
+
+```groovy
+implementation 'io.github.pavleprica:kotlin-cache:1.0'
+```
