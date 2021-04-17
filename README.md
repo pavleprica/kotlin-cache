@@ -60,12 +60,12 @@ Just add the maven dependency in your pom file.
 <dependency>
   <groupId>io.github.pavleprica</groupId>
   <artifactId>kotlin-cache</artifactId>
-  <version>1.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
 Or for Gradle Groovy
 
 ```groovy
-implementation 'io.github.pavleprica:kotlin-cache:1.0'
+implementation 'io.github.pavleprica:kotlin-cache:1.0.1'
 ```
