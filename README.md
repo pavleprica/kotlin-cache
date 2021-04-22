@@ -33,15 +33,16 @@ Inside those it can be overridden as well.
 ### Usage
 
 ```kotlin
-// Creates a time based cache of 10 millis
-val cache = customTimeBasedCache<Int, String>(10L)
+
+ import java.time.Duration// Creates a time based cache of 10 millis
+val cache = customTimeBasedCache<Int, String>(Duration.ofMillis(10L))
 
 // Overrides the set default time to 5 millis.
 // All cache from this point will expire in 5 millis
-cache.setDefaultExpirationTime(5L)
+cache.setDefaultExpirationTime(Duration.ofMillis(5L))
 
 // This cache only will expire in 100 millis
-cache.set(5, CustomTimeBasedValue("Something cool", 100L))
+cache.set(5, CustomTimeBasedValue("Something cool", Duration.ofMillis(100L)))
 
 // Other default time based caches
 
@@ -60,12 +61,12 @@ Just add the maven dependency in your pom file.
 <dependency>
   <groupId>io.github.pavleprica</groupId>
   <artifactId>kotlin-cache</artifactId>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
 Or for Gradle Groovy
 
 ```groovy
-implementation 'io.github.pavleprica:kotlin-cache:1.0.1'
+implementation 'io.github.pavleprica:kotlin-cache:1.1.0'
 ```
