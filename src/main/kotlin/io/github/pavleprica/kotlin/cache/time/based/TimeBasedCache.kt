@@ -2,6 +2,7 @@ package io.github.pavleprica.kotlin.cache.time.based
 
 import io.github.pavleprica.kotlin.cache.Cache
 import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
+import java.time.Duration
 
 /**
  * [TimeBasedCache] is a expansion of the cache interface.
@@ -14,14 +15,14 @@ import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
  */
 interface TimeBasedCache<T, E>: Cache<T, E> {
 
-    val defaultExpirationTime: Long
+    val defaultExpirationTime: Duration
 
     /**
      * Overrides the default value of the expiration time and sets a new values.
      *
      * @param expirationTime the new expiration time.
      */
-    fun setDefaultExpirationTime(expirationTime: Long)
+    fun setDefaultExpirationTime(expirationTime: Duration)
 
     /**
      * Sets a value with a custom expiration time without influencing the default one.
@@ -33,6 +34,6 @@ interface TimeBasedCache<T, E>: Cache<T, E> {
 
 }
 
-const val ONE_MINUTE = 60L * 1000L
+val ONE_MINUTE = Duration.ofMinutes(1L)
 
-const val ONE_HOUR = ONE_MINUTE * 60
+val ONE_HOUR = Duration.ofHours(1L)

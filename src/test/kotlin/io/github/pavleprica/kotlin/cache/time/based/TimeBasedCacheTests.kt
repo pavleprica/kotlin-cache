@@ -3,8 +3,8 @@ package io.github.pavleprica.kotlin.cache.time.based
 import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.longs.shouldBeExactly
 import io.kotest.matchers.shouldBe
+import java.time.Duration
 import kotlin.random.Random
 
 class TimeBasedCacheTests: FunSpec() {
@@ -117,7 +117,7 @@ class TimeBasedCacheTests: FunSpec() {
 
                 test("Should be 0 after value expires") {
                     val mockItem = createMockItem()
-                    cache[mockItem.first] = CustomTimeBasedValue(mockItem.second, 1)
+                    cache[mockItem.first] = CustomTimeBasedValue(mockItem.second, Duration.ofMillis(1L))
 
                     Thread.sleep(2L)
 
@@ -130,14 +130,14 @@ class TimeBasedCacheTests: FunSpec() {
             context("When overriding default expiration time") {
 
                 test("Should override default value") {
-                    cache.setDefaultExpirationTime(5L)
+                    cache.setDefaultExpirationTime(Duration.ofMillis(5L))
 
-                    cache.defaultExpirationTime shouldBeExactly 5L
+                    cache.defaultExpirationTime shouldBe Duration.ofMillis(5L)
                 }
 
                 test("When overriding default value and value expires") {
                     val mockItem = createMockItem()
-                    cache.setDefaultExpirationTime(1L)
+                    cache.setDefaultExpirationTime(Duration.ofMillis(1L))
 
                     cache[mockItem.first] = mockItem.second
 
@@ -152,13 +152,13 @@ class TimeBasedCacheTests: FunSpec() {
             context("When using expiration time with below 0") {
 
                 test("Should throw error on overriding default") {
-                    shouldThrow<IllegalArgumentException> { cache.setDefaultExpirationTime(-5) }
+                    shouldThrow<IllegalArgumentException> { cache.setDefaultExpirationTime(Duration.ofMillis(-5L)) }
                 }
 
                 test("Should throw error on setting with custom expiration time below 0") {
                     val mockItem = createMockItem()
                     shouldThrow<IllegalArgumentException> {
-                        cache.set(mockItem.first, CustomTimeBasedValue(mockItem.second, -5))
+                        cache.set(mockItem.first, CustomTimeBasedValue(mockItem.second, Duration.ofMillis(-5L)))
                     }
                 }
 
@@ -174,10 +174,10 @@ class TimeBasedCacheTests: FunSpec() {
                     )
 
                     mockItemList.forEachIndexed { i, it ->
-                        cache[it.first + i + 1] = CustomTimeBasedValue(it.second, 2L + i)
+                        cache[it.first + i + 1] = CustomTimeBasedValue(it.second, Duration.ofMillis(2L + i))
                     }
 
-                    createMockItem().let { cache[it.first] = CustomTimeBasedValue(it.second, 1000L) }
+                    createMockItem().let { cache[it.first] = CustomTimeBasedValue(it.second, Duration.ofMillis(1000L)) }
 
                     Thread.sleep(3)
 

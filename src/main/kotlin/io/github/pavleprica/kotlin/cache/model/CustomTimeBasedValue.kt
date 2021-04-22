@@ -1,5 +1,7 @@
 package io.github.pavleprica.kotlin.cache.model
 
+import java.time.Duration
+
 /**
  * [CustomTimeBasedValue] is used to add a custom expiration time
  * not influencing the default value.
@@ -9,5 +11,5 @@ package io.github.pavleprica.kotlin.cache.model
  */
 data class CustomTimeBasedValue<E>(
     val value: E,
-    val expirationTime: Long,
+    val expirationTime: Duration
 )
