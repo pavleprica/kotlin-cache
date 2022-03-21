@@ -6,7 +6,7 @@ import java.time.Duration
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-open class CustomTimeBasedCache<T, E> (
+open class CustomTimeBasedCache<T: Any, E: Any> (
     private var defaultExpiration: Duration
         ): TimeBasedCache<T, E> {
 
@@ -74,4 +74,4 @@ open class CustomTimeBasedCache<T, E> (
     }
 }
 
-inline fun <reified T, reified E> customTimeBasedCache(expirationTime: Duration): CustomTimeBasedCache<T, E> = CustomTimeBasedCache(expirationTime)
+inline fun <reified T: Any, reified E: Any> customTimeBasedCache(expirationTime: Duration): CustomTimeBasedCache<T, E> = CustomTimeBasedCache(expirationTime)

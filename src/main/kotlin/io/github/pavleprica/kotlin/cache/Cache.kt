@@ -9,7 +9,7 @@ import java.util.*
  * @param E is the value of the cache.
  * @property size is the current size of the cache.
  */
-interface Cache<T, E> {
+interface Cache<T: Any, E: Any> {
 
     val size: Int
 

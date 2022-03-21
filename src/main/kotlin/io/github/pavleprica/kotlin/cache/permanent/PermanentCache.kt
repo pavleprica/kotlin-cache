@@ -5,7 +5,7 @@ import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 
-class PermanentCache<T, E>: Cache<T, E> {
+class PermanentCache<T: Any, E: Any>: Cache<T, E> {
 
     private val cacheMap: ConcurrentHashMap<T, E> = ConcurrentHashMap()
 
@@ -35,4 +35,4 @@ class PermanentCache<T, E>: Cache<T, E> {
     }
 }
 
-inline fun <reified T, reified E> permanentCache(): PermanentCache<T, E> = PermanentCache()
+inline fun <reified T: Any, reified E: Any> permanentCache(): PermanentCache<T, E> = PermanentCache()
