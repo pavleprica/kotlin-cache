@@ -9,7 +9,7 @@ import java.time.Duration
  * @property value the value to add
  * @property expirationTime the expiration time of the value
  */
-data class CustomTimeBasedValue<E>(
+data class CustomTimeBasedValue<E: Any>(
     val value: E,
     val expirationTime: Duration
 )
