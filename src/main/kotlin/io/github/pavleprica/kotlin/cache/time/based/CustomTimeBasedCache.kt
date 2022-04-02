@@ -29,7 +29,7 @@ open class CustomTimeBasedCache<T, E: Any> (
 
         val value = cacheValueMap[key]
 
-        return if (value != null) Optional.of(value) else Optional.empty()
+        return Optional.ofNullable(value)
     }
 
     private fun expirationTimeCheckAndClean() {
