@@ -19,7 +19,7 @@ class PermanentCache<T, E: Any>: Cache<T, E> {
     override fun get(key: T): Optional<E> {
         val value = cacheMap[key]
 
-        return if (value != null) Optional.of(value) else Optional.empty()
+        return Optional.ofNullable(value)
     }
 
     override fun remove(key: T) {
