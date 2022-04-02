@@ -47,39 +47,39 @@ class TimeBasedCacheTests: FunSpec() {
             context("When getting values") {
 
                 test("Should get value after set") {
-                    val mockItem = createMockItem()
-                    cache[mockItem.first] = mockItem.second
+                    val (key, value) = createMockItem()
+                    cache[key] = value
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isPresent shouldBe true
-                    fetchedItem.get() shouldBe mockItem.second
+                    fetchedItem.get() shouldBe value
                 }
 
                 test("Should get empty when getting without set") {
-                    val mockItem = createMockItem()
+                    val (key, _) = createMockItem()
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isEmpty shouldBe true
                 }
 
                 test("Should get empty after getting after clear") {
-                    val mockItem = createMockItem()
-                    cache[mockItem.first] = mockItem.second
+                    val (key, value) = createMockItem()
+                    cache[key] = value
                     cache.clear()
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isEmpty shouldBe true
                 }
 
                 test("Should get empty after getting after removing item") {
-                    val mockItem = createMockItem()
-                    cache[mockItem.first] = mockItem.second
-                    cache.remove(mockItem.first)
+                    val (key, value) = createMockItem()
+                    cache[key] = value
+                    cache.remove(key)
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isEmpty shouldBe true
                 }
@@ -89,20 +89,20 @@ class TimeBasedCacheTests: FunSpec() {
             context("When removing items") {
 
                 test("Should remove when object present") {
-                    val mockItem = createMockItem()
-                    cache[mockItem.first] = mockItem.second
-                    cache.remove(mockItem.first)
+                    val (key, value) = createMockItem()
+                    cache[key] = value
+                    cache.remove(key)
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isEmpty shouldBe true
                 }
 
                 test("Should remove when object not present") {
-                    val mockItem = createMockItem()
-                    cache.remove(mockItem.first)
+                    val (key, _) = createMockItem()
+                    cache.remove(key)
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isEmpty shouldBe true
                 }
@@ -116,12 +116,12 @@ class TimeBasedCacheTests: FunSpec() {
             context("When checking size") {
 
                 test("Should be 0 after value expires") {
-                    val mockItem = createMockItem()
-                    cache[mockItem.first] = CustomTimeBasedValue(mockItem.second, Duration.ofMillis(1L))
+                    val (key, value) = createMockItem()
+                    cache[key] = CustomTimeBasedValue(value, Duration.ofMillis(1L))
 
                     Thread.sleep(2L)
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
                     fetchedItem.isEmpty shouldBe true
                 }
 
@@ -136,14 +136,14 @@ class TimeBasedCacheTests: FunSpec() {
                 }
 
                 test("When overriding default value and value expires") {
-                    val mockItem = createMockItem()
+                    val (key, value) = createMockItem()
                     cache.setDefaultExpirationTime(Duration.ofMillis(1L))
 
-                    cache[mockItem.first] = mockItem.second
+                    cache[key] = value
 
                     Thread.sleep(2L)
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
                     fetchedItem.isEmpty shouldBe true
                 }
 
@@ -156,9 +156,9 @@ class TimeBasedCacheTests: FunSpec() {
                 }
 
                 test("Should throw error on setting with custom expiration time below 0") {
-                    val mockItem = createMockItem()
+                    val (key, value) = createMockItem()
                     shouldThrow<IllegalArgumentException> {
-                        cache.set(mockItem.first, CustomTimeBasedValue(mockItem.second, Duration.ofMillis(-5L)))
+                        cache.set(key, CustomTimeBasedValue(value, Duration.ofMillis(-5L)))
                     }
                 }
 
