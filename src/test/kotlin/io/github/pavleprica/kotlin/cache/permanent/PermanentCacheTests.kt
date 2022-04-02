@@ -27,7 +27,10 @@ class PermanentCacheTests: FunSpec() {
                     val listSize = 3
                     val list = createMockList(listSize)
                     list.forEach { (key, value) -> cache[key] = value }
+                    cache.size shouldBe listSize
+
                     cache.clear()
+
                     cache.size shouldBe 0
                     cache.isEmpty() shouldBe true
                 }
@@ -45,39 +48,39 @@ class PermanentCacheTests: FunSpec() {
             context("When getting values") {
 
                 test("Should get value after set") {
-                    val mockItem = createMockItem()
-                    cache[mockItem.first] = mockItem.second
+                    val (key, value) = createMockItem()
+                    cache[key] = value
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isPresent shouldBe true
-                    fetchedItem.get() shouldBe mockItem.second
+                    fetchedItem.get() shouldBe value
                 }
 
                 test("Should get empty when getting without set") {
-                    val mockItem = createMockItem()
+                    val (key, _) = createMockItem()
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isEmpty shouldBe true
                 }
 
                 test("Should get empty after getting after clear") {
-                    val mockItem = createMockItem()
-                    cache[mockItem.first] = mockItem.second
+                    val (key, value) = createMockItem()
+                    cache[key] = value
                     cache.clear()
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isEmpty shouldBe true
                 }
 
                 test("Should get empty after getting after removing item") {
-                    val mockItem = createMockItem()
-                    cache[mockItem.first] = mockItem.second
-                    cache.remove(mockItem.first)
+                    val (key, value) = createMockItem()
+                    cache[key] = value
+                    cache.remove(key)
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isEmpty shouldBe true
                 }
@@ -87,20 +90,20 @@ class PermanentCacheTests: FunSpec() {
             context("When removing items") {
 
                 test("Should remove when object present") {
-                    val mockItem = createMockItem()
-                    cache[mockItem.first] = mockItem.second
-                    cache.remove(mockItem.first)
+                    val (key, value) = createMockItem()
+                    cache[key] = value
+                    cache.remove(key)
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isEmpty shouldBe true
                 }
 
                 test("Should remove when object not present") {
-                    val mockItem = createMockItem()
-                    cache.remove(mockItem.first)
+                    val (key, _) = createMockItem()
+                    cache.remove(key)
 
-                    val fetchedItem = cache[mockItem.first]
+                    val fetchedItem = cache[key]
 
                     fetchedItem.isEmpty shouldBe true
                 }
