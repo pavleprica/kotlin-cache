@@ -1,6 +1,6 @@
 package io.github.pavleprica.kotlin.cache
 
-import java.util.*
+import java.util.Optional
 
 /**
  * Interface for operations to be done under cache implementation.
@@ -9,7 +9,7 @@ import java.util.*
  * @param E is the value of the cache.
  * @property size is the current size of the cache.
  */
-interface Cache<T, E: Any> {
+interface Cache<T, E : Any> {
 
     val size: Int
 
@@ -47,5 +47,4 @@ interface Cache<T, E: Any> {
      * @return [Boolean] in case cache is empty.
      */
     fun isEmpty(): Boolean
-
 }

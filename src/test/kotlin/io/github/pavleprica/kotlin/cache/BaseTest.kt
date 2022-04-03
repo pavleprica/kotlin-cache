@@ -6,7 +6,7 @@ import kotlin.random.Random
 
 inline fun <reified T : Any> mock(): T = Mockito.mock(T::class.java)
 
-open class BaseTest: FunSpec() {
+open class BaseTest : FunSpec() {
 
     init {
         context("Test load") {
@@ -23,5 +23,4 @@ open class BaseTest: FunSpec() {
     }
 
     protected val createMockItem: () -> Pair<Int, Int> = { Pair(Random(5).nextInt(), Random(5).nextInt()) }
-
 }
