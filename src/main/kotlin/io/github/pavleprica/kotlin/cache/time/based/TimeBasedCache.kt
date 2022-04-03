@@ -13,7 +13,7 @@ import java.time.Duration
  * @param E is the value of the cache.
  * @property defaultExpirationTime is the default value for setting the expiration time.
  */
-interface TimeBasedCache<T, E: Any>: Cache<T, E> {
+interface TimeBasedCache<T, E : Any> : Cache<T, E> {
 
     val defaultExpirationTime: Duration
 
@@ -31,7 +31,6 @@ interface TimeBasedCache<T, E: Any>: Cache<T, E> {
      * @param [CustomTimeBasedValue] a value with the custom expiration time
      */
     operator fun set(key: T, value: CustomTimeBasedValue<E>)
-
 }
 
 val ONE_MINUTE = Duration.ofMinutes(1L)

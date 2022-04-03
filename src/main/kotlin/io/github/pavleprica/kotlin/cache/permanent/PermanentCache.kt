@@ -1,11 +1,10 @@
 package io.github.pavleprica.kotlin.cache.permanent
 
 import io.github.pavleprica.kotlin.cache.Cache
-import java.util.*
+import java.util.Optional
 import java.util.concurrent.ConcurrentHashMap
 
-
-open class PermanentCache<T, E: Any>: Cache<T, E> {
+open class PermanentCache<T, E : Any> : Cache<T, E> {
 
     private val cacheMap: ConcurrentHashMap<T, E> = ConcurrentHashMap()
 
@@ -35,4 +34,4 @@ open class PermanentCache<T, E: Any>: Cache<T, E> {
     }
 }
 
-inline fun <reified T, reified E: Any> permanentCache(): PermanentCache<T, E> = PermanentCache()
+inline fun <reified T, reified E : Any> permanentCache(): PermanentCache<T, E> = PermanentCache()

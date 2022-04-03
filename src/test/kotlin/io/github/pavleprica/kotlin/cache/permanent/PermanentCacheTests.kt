@@ -2,11 +2,9 @@ package io.github.pavleprica.kotlin.cache.permanent
 
 import io.github.pavleprica.kotlin.cache.BaseTest
 import io.github.pavleprica.kotlin.cache.Cache
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import kotlin.random.Random
 
-class PermanentCacheTests: BaseTest() {
+class PermanentCacheTests : BaseTest() {
 
     private lateinit var cache: Cache<Int, Int>
 
@@ -43,7 +41,6 @@ class PermanentCacheTests: BaseTest() {
                     cache.remove(list[0].first)
                     cache.size shouldBe listSize - 1
                 }
-
             }
 
             context("When getting values") {
@@ -85,7 +82,6 @@ class PermanentCacheTests: BaseTest() {
 
                     fetchedItem.isEmpty shouldBe true
                 }
-
             }
 
             context("When removing items") {
@@ -108,14 +104,11 @@ class PermanentCacheTests: BaseTest() {
 
                     fetchedItem.isEmpty shouldBe true
                 }
-
             }
-
         }
     }
 
     private fun initCache() {
         cache = permanentCache()
     }
-
 }
