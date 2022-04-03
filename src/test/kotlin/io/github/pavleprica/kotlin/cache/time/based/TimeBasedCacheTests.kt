@@ -1,5 +1,6 @@
 package io.github.pavleprica.kotlin.cache.time.based
 
+import io.github.pavleprica.kotlin.cache.BaseTest
 import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
@@ -7,7 +8,7 @@ import io.kotest.matchers.shouldBe
 import java.time.Duration
 import kotlin.random.Random
 
-class TimeBasedCacheTests: FunSpec() {
+class TimeBasedCacheTests: BaseTest() {
 
     private lateinit var cache: TimeBasedCache<Int, Int>
 
@@ -194,13 +195,5 @@ class TimeBasedCacheTests: FunSpec() {
     }
 
     private fun initCache() { cache = shortTimeBasedCache() }
-
-    private val createMockList: (listSize: Int) -> List<Pair<Int, Int>> = { listSize ->
-        val list = mutableListOf<Pair<Int, Int>>()
-        repeat(listSize) { list.add(Pair(it, it)) }
-        list
-    }
-
-    private val createMockItem: () -> Pair<Int, Int> = { Pair(Random(5).nextInt(), Random(5).nextInt()) }
 
 }

@@ -1,11 +1,12 @@
 package io.github.pavleprica.kotlin.cache.permanent
 
+import io.github.pavleprica.kotlin.cache.BaseTest
 import io.github.pavleprica.kotlin.cache.Cache
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlin.random.Random
 
-class PermanentCacheTests: FunSpec() {
+class PermanentCacheTests: BaseTest() {
 
     private lateinit var cache: Cache<Int, Int>
 
@@ -116,13 +117,5 @@ class PermanentCacheTests: FunSpec() {
     private fun initCache() {
         cache = permanentCache()
     }
-
-    private val createMockList: (listSize: Int) -> List<Pair<Int, Int>> = { listSize ->
-        val list = mutableListOf<Pair<Int, Int>>()
-        repeat(listSize) { list.add(Pair(it, it)) }
-        list
-    }
-
-    private val createMockItem: () -> Pair<Int, Int> = { Pair(Random(5).nextInt(), Random(5).nextInt()) }
 
 }
