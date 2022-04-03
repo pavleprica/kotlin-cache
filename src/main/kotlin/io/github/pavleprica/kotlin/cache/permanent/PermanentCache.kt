@@ -5,7 +5,7 @@ import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 
-class PermanentCache<T, E: Any>: Cache<T, E> {
+open class PermanentCache<T, E: Any>: Cache<T, E> {
 
     private val cacheMap: ConcurrentHashMap<T, E> = ConcurrentHashMap()
 
