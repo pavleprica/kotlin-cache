@@ -2,8 +2,7 @@ package io.github.pavleprica.kotlin.cache.observable
 
 import io.github.pavleprica.kotlin.cache.permanent.PermanentCache
 
-
-class ObservableCache<T, E: Any> : PermanentCache<T, E>() {
+class ObservableCache<T, E : Any> : PermanentCache<T, E>() {
 
     fun subscribeOnAll(callback: () -> Unit) {
         TODO("Not implemented yet")
@@ -28,5 +27,6 @@ class ObservableCache<T, E: Any> : PermanentCache<T, E>() {
     fun subscribeOnDelete(callback: (E) -> Unit) {
         TODO("Not implemented yet")
     }
-
 }
+
+inline fun <reified T, reified E : Any> observableCache(): ObservableCache<T, E> = ObservableCache()
