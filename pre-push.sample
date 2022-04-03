@@ -1,0 +1,3 @@
+#!/bin/bash
+# Runs Ktlint
+exec mvn antrun:run@ktlint
