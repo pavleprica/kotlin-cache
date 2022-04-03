@@ -3,12 +3,10 @@ package io.github.pavleprica.kotlin.cache.time.based
 import io.github.pavleprica.kotlin.cache.BaseTest
 import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import java.time.Duration
-import kotlin.random.Random
 
-class TimeBasedCacheTests: BaseTest() {
+class TimeBasedCacheTests : BaseTest() {
 
     private lateinit var cache: TimeBasedCache<Int, Int>
 
@@ -42,7 +40,6 @@ class TimeBasedCacheTests: BaseTest() {
                     cache.remove(list[0].first)
                     cache.size shouldBe listSize - 1
                 }
-
             }
 
             context("When getting values") {
@@ -84,7 +81,6 @@ class TimeBasedCacheTests: BaseTest() {
 
                     fetchedItem.isEmpty shouldBe true
                 }
-
             }
 
             context("When removing items") {
@@ -107,9 +103,7 @@ class TimeBasedCacheTests: BaseTest() {
 
                     fetchedItem.isEmpty shouldBe true
                 }
-
             }
-
         }
 
         context("When using time based cache with expiration") {
@@ -125,7 +119,6 @@ class TimeBasedCacheTests: BaseTest() {
                     val fetchedItem = cache[key]
                     fetchedItem.isEmpty shouldBe true
                 }
-
             }
 
             context("When overriding default expiration time") {
@@ -147,7 +140,6 @@ class TimeBasedCacheTests: BaseTest() {
                     val fetchedItem = cache[key]
                     fetchedItem.isEmpty shouldBe true
                 }
-
             }
 
             context("When using expiration time with below 0") {
@@ -162,7 +154,6 @@ class TimeBasedCacheTests: BaseTest() {
                         cache.set(key, CustomTimeBasedValue(value, Duration.ofMillis(-5L)))
                     }
                 }
-
             }
 
             context("When having multiple items and ordering cache time") {
@@ -188,12 +179,9 @@ class TimeBasedCacheTests: BaseTest() {
 
                     createMockItem().let { cache[it.first].isPresent shouldBe true }
                 }
-
             }
-
         }
     }
 
     private fun initCache() { cache = shortTimeBasedCache() }
-
 }

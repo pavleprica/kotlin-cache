@@ -3,12 +3,12 @@ package io.github.pavleprica.kotlin.cache.time.based
 import io.github.pavleprica.kotlin.cache.model.CustomTimeBasedValue
 import io.github.pavleprica.kotlin.cache.model.KeyTimeWrapper
 import java.time.Duration
-import java.util.*
+import java.util.Optional
 import java.util.concurrent.ConcurrentHashMap
 
-open class CustomTimeBasedCache<T, E: Any> (
+open class CustomTimeBasedCache<T, E : Any> (
     private var defaultExpiration: Duration
-        ): TimeBasedCache<T, E> {
+) : TimeBasedCache<T, E> {
 
     private val cacheValueMap: ConcurrentHashMap<T, E> = ConcurrentHashMap()
     private val cacheExpirationList: MutableList<KeyTimeWrapper<T>> = mutableListOf()
@@ -74,4 +74,4 @@ open class CustomTimeBasedCache<T, E: Any> (
     }
 }
 
-inline fun <reified T, reified E: Any> customTimeBasedCache(expirationTime: Duration): CustomTimeBasedCache<T, E> = CustomTimeBasedCache(expirationTime)
+inline fun <reified T, reified E : Any> customTimeBasedCache(expirationTime: Duration): CustomTimeBasedCache<T, E> = CustomTimeBasedCache(expirationTime)
