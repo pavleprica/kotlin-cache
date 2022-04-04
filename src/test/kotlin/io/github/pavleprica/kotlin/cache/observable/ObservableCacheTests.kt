@@ -73,6 +73,134 @@ class ObservableCacheTests : BaseTest() {
                         }
                     }
                 }
+
+                context("When removing items items") {
+
+                    test("Should trigger update when subscribed before add") {
+                        val (key, value) = createMockItem()
+                        cache[key] = value
+
+                        val observerMock: Observer<Int> = mock()
+                        cache.subscribe(observerMock)
+
+                        cache.remove(key)
+
+                        verify(exactly = 1) {
+                            observerMock.update(value)
+                        }
+
+                        confirmVerified(observerMock)
+                    }
+
+                    test("Should not trigger update when subscribed after add") {
+                        val (key, value) = createMockItem()
+                        cache[key] = value
+
+                        cache.remove(key)
+
+                        val observerMock: Observer<Int> = mock()
+                        cache.subscribe(observerMock)
+
+                        verify(exactly = 0) {
+                            observerMock.update(value)
+                        }
+
+                        confirmVerified(observerMock)
+                    }
+
+                    test("Should trigger update to all mocks") {
+                        val (key, value) = createMockItem()
+                        cache[key] = value
+
+                        val observerMocks = listOf<Observer<Int>>(
+                            mock(),
+                            mock(),
+                            mock(),
+                            mock(),
+                            mock(),
+                        )
+
+                        for (observerMock in observerMocks) {
+                            cache.subscribe(observerMock)
+                        }
+
+                        cache.remove(key)
+
+                        verify(exactly = 1) {
+                            for (observerMock in observerMocks) {
+                                observerMock.update(value)
+                            }
+                        }
+
+                        for (observerMock in observerMocks) {
+                            confirmVerified(observerMock)
+                        }
+                    }
+                }
+
+                context("When clearing cache") {
+
+                    test("Should trigger update when subscribed before add") {
+                        val (key, value) = createMockItem()
+                        cache[key] = value
+
+                        val observerMock: Observer<Int> = mock()
+                        cache.subscribe(observerMock)
+
+                        cache.clear()
+
+                        verify(exactly = 1) {
+                            observerMock.update(value)
+                        }
+
+                        confirmVerified(observerMock)
+                    }
+
+                    test("Should not trigger update when subscribed after add") {
+                        val (key, value) = createMockItem()
+                        cache[key] = value
+
+                        cache.clear()
+
+                        val observerMock: Observer<Int> = mock()
+                        cache.subscribe(observerMock)
+
+                        verify(exactly = 0) {
+                            observerMock.update(value)
+                        }
+
+                        confirmVerified(observerMock)
+                    }
+
+                    test("Should trigger update to all mocks") {
+                        val (key, value) = createMockItem()
+                        cache[key] = value
+
+                        val observerMocks = listOf<Observer<Int>>(
+                            mock(),
+                            mock(),
+                            mock(),
+                            mock(),
+                            mock(),
+                        )
+
+                        for (observerMock in observerMocks) {
+                            cache.subscribe(observerMock)
+                        }
+
+                        cache.clear()
+
+                        verify(exactly = 1) {
+                            for (observerMock in observerMocks) {
+                                observerMock.update(value)
+                            }
+                        }
+
+                        for (observerMock in observerMocks) {
+                            confirmVerified(observerMock)
+                        }
+                    }
+                }
             }
         }
     }
