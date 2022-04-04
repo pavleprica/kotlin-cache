@@ -53,6 +53,34 @@ val shortCache = shortTimeBasedCache()
 val longCache = longTimeBasedCache()
 ```
 
+## Observable cache
+Observable cache is used to subscribe observers/listeners on changes happening
+inside the cache. The notification is sent out on invocation of setting and removing values
+from the cache. Observable cache works the same as permanent cache. Expiring cache is not supported
+at this very moment.
+
+### Usage
+```kotlin
+val cache = observableCache<Int, Int>()
+
+val observer = object: Observer<E> {
+    override fun update(updatedValue: E) {
+        println("This value is updated $updatedValue")
+    }
+}
+
+cache.subscribe(observer)
+
+cache[5] = 10
+
+// Should print out "This value is updated 10"
+```
+
+```kotlin
+// To unsubscribe just invoke it
+cache.unsubscribe(observer)
+```
+
 ## How to include it in the project
 
 Just add the maven dependency in your pom file.
