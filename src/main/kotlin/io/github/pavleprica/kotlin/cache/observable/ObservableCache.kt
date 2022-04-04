@@ -7,13 +7,28 @@ class ObservableCache<T, E : Any> : PermanentCache<T, E>() {
     private val cacheObservers = mutableListOf<Observer<E>>()
 
     fun subscribe(observer: Observer<E>) {
-//        cacheObservers.add(observer)
-        TODO("Not yet implemented")
+        cacheObservers.add(observer)
     }
 
     fun unSubscribe(observer: Observer<E>) {
-//        cacheObservers.remove(observer)
-        TODO("Not yet implemented")
+        cacheObservers.remove(observer)
+    }
+
+    override fun set(key: T, value: E) {
+        notifyObservers(value)
+        super.set(key, value)
+    }
+
+    override fun remove(key: T) {
+        val value = super.get(key).orElseThrow()
+        notifyObservers(value)
+        super.remove(key)
+    }
+
+    private fun notifyObservers(value: E) {
+        for (cacheObserver in cacheObservers) {
+            cacheObserver.update(value)
+        }
     }
 }
 
