@@ -2,8 +2,7 @@ package io.github.pavleprica.kotlin.cache.observable
 
 import io.github.pavleprica.kotlin.cache.BaseTest
 import io.github.pavleprica.kotlin.cache.mock
-import io.mockk.confirmVerified
-import io.mockk.verify
+import org.mockito.Mockito
 
 class ObservableCacheTests : BaseTest() {
 
@@ -25,11 +24,7 @@ class ObservableCacheTests : BaseTest() {
                         val (key, value) = createMockItem()
                         cache[key] = value
 
-                        verify(exactly = 1) {
-                            observerMock.update(value)
-                        }
-
-                        confirmVerified(observerMock)
+                        Mockito.verify(observerMock).update(value)
                     }
 
                     test("Should not trigger update when subscribed after add") {
@@ -39,11 +34,7 @@ class ObservableCacheTests : BaseTest() {
                         val observerMock: Observer<Int> = mock()
                         cache.subscribe(observerMock)
 
-                        verify(exactly = 0) {
-                            observerMock.update(value)
-                        }
-
-                        confirmVerified(observerMock)
+                        Mockito.verifyNoInteractions(observerMock)
                     }
 
                     test("Should trigger update to all mocks") {
@@ -62,14 +53,8 @@ class ObservableCacheTests : BaseTest() {
                         val (key, value) = createMockItem()
                         cache[key] = value
 
-                        verify(exactly = 1) {
-                            for (observerMock in observerMocks) {
-                                observerMock.update(value)
-                            }
-                        }
-
                         for (observerMock in observerMocks) {
-                            confirmVerified(observerMock)
+                            Mockito.verify(observerMock).update(value)
                         }
                     }
                 }
@@ -85,11 +70,7 @@ class ObservableCacheTests : BaseTest() {
 
                         cache.remove(key)
 
-                        verify(exactly = 1) {
-                            observerMock.update(value)
-                        }
-
-                        confirmVerified(observerMock)
+                        Mockito.verify(observerMock).update(value)
                     }
 
                     test("Should not trigger update when subscribed after add") {
@@ -101,11 +82,7 @@ class ObservableCacheTests : BaseTest() {
                         val observerMock: Observer<Int> = mock()
                         cache.subscribe(observerMock)
 
-                        verify(exactly = 0) {
-                            observerMock.update(value)
-                        }
-
-                        confirmVerified(observerMock)
+                        Mockito.verifyNoInteractions(observerMock)
                     }
 
                     test("Should trigger update to all mocks") {
@@ -126,78 +103,8 @@ class ObservableCacheTests : BaseTest() {
 
                         cache.remove(key)
 
-                        verify(exactly = 1) {
-                            for (observerMock in observerMocks) {
-                                observerMock.update(value)
-                            }
-                        }
-
                         for (observerMock in observerMocks) {
-                            confirmVerified(observerMock)
-                        }
-                    }
-                }
-
-                context("When clearing cache") {
-
-                    test("Should trigger update when subscribed before add") {
-                        val (key, value) = createMockItem()
-                        cache[key] = value
-
-                        val observerMock: Observer<Int> = mock()
-                        cache.subscribe(observerMock)
-
-                        cache.clear()
-
-                        verify(exactly = 1) {
-                            observerMock.update(value)
-                        }
-
-                        confirmVerified(observerMock)
-                    }
-
-                    test("Should not trigger update when subscribed after add") {
-                        val (key, value) = createMockItem()
-                        cache[key] = value
-
-                        cache.clear()
-
-                        val observerMock: Observer<Int> = mock()
-                        cache.subscribe(observerMock)
-
-                        verify(exactly = 0) {
-                            observerMock.update(value)
-                        }
-
-                        confirmVerified(observerMock)
-                    }
-
-                    test("Should trigger update to all mocks") {
-                        val (key, value) = createMockItem()
-                        cache[key] = value
-
-                        val observerMocks = listOf<Observer<Int>>(
-                            mock(),
-                            mock(),
-                            mock(),
-                            mock(),
-                            mock(),
-                        )
-
-                        for (observerMock in observerMocks) {
-                            cache.subscribe(observerMock)
-                        }
-
-                        cache.clear()
-
-                        verify(exactly = 1) {
-                            for (observerMock in observerMocks) {
-                                observerMock.update(value)
-                            }
-                        }
-
-                        for (observerMock in observerMocks) {
-                            confirmVerified(observerMock)
+                            Mockito.verify(observerMock).update(value)
                         }
                     }
                 }
@@ -213,11 +120,7 @@ class ObservableCacheTests : BaseTest() {
                     val (key, value) = createMockItem()
                     cache[key] = value
 
-                    verify(exactly = 0) {
-                        observerMock.update(value)
-                    }
-
-                    confirmVerified(observerMock)
+                    Mockito.verifyNoInteractions(observerMock)
                 }
 
                 test("Should not receive update on remove") {
@@ -229,27 +132,7 @@ class ObservableCacheTests : BaseTest() {
                     cache[key] = value
                     cache.remove(key)
 
-                    verify(exactly = 0) {
-                        observerMock.update(value)
-                    }
-
-                    confirmVerified(observerMock)
-                }
-
-                test("Should not receive update on clear") {
-                    val observerMock: Observer<Int> = mock()
-                    cache.subscribe(observerMock)
-                    cache.unSubscribe(observerMock)
-
-                    val (key, value) = createMockItem()
-                    cache[key] = value
-                    cache.clear()
-
-                    verify(exactly = 0) {
-                        observerMock.update(value)
-                    }
-
-                    confirmVerified(observerMock)
+                    Mockito.verifyNoInteractions(observerMock)
                 }
 
                 test("Should not receive update on add with multiple unsubscribes") {
@@ -269,14 +152,8 @@ class ObservableCacheTests : BaseTest() {
                     val (key, value) = createMockItem()
                     cache[key] = value
 
-                    verify(exactly = 0) {
-                        for (observerMock in observerMocks) {
-                            observerMock.update(value)
-                        }
-                    }
-
                     for (observerMock in observerMocks) {
-                        confirmVerified(observerMock)
+                        Mockito.verifyNoInteractions(observerMock)
                     }
                 }
             }
