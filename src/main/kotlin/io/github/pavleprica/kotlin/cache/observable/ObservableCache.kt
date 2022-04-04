@@ -27,7 +27,7 @@ class ObservableCache<T, E : Any> : PermanentCache<T, E>() {
      * @param observer to be unsubscribed from changes.
      * @see [Observer]
      */
-    fun unSubscribe(observer: Observer<E>) {
+    fun unsubscribe(observer: Observer<E>) {
         cacheObservers.remove(observer)
     }
 

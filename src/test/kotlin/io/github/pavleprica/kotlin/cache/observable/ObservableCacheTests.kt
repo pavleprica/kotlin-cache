@@ -115,7 +115,7 @@ class ObservableCacheTests : BaseTest() {
                 test("Should not receive update on add") {
                     val observerMock: Observer<Int> = mock()
                     cache.subscribe(observerMock)
-                    cache.unSubscribe(observerMock)
+                    cache.unsubscribe(observerMock)
 
                     val (key, value) = createMockItem()
                     cache[key] = value
@@ -126,7 +126,7 @@ class ObservableCacheTests : BaseTest() {
                 test("Should not receive update on remove") {
                     val observerMock: Observer<Int> = mock()
                     cache.subscribe(observerMock)
-                    cache.unSubscribe(observerMock)
+                    cache.unsubscribe(observerMock)
 
                     val (key, value) = createMockItem()
                     cache[key] = value
@@ -146,7 +146,7 @@ class ObservableCacheTests : BaseTest() {
 
                     for (observerMock in observerMocks) {
                         cache.subscribe(observerMock)
-                        cache.unSubscribe(observerMock)
+                        cache.unsubscribe(observerMock)
                     }
 
                     val (key, value) = createMockItem()
