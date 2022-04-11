@@ -4,7 +4,7 @@
 
     <artifactId>kotlin-cache</artifactId>
     <groupId>io.github.pavleprica</groupId>
-    <version>1.1.2-SNAPSHOT</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <!--  Info  -->
@@ -19,7 +19,7 @@
         <connection>scm:git:git://github.com/pavleprica/kotlin-cache</connection>
         <developerConnection>scm:git:git@github.com:pavleprica/kotlin-cache</developerConnection>
         <url>https://github.com/pavleprica/kotlin-cache</url>
-        <tag>HEAD</tag>
+        <tag>kotlin-cache-1.2.0</tag>
     </scm>
     <developers>
         <developer>
@@ -213,9 +213,8 @@
                         <phase>verify</phase>
                         <configuration>
                             <target name="ktlint">
-                                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true"
-                                      classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
-                                    <arg value="src/**/*.kt"/>
+                                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true" classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
+                                    <arg value="src/**/*.kt" />
                                 </java>
                             </target>
                         </configuration>
@@ -225,10 +224,9 @@
                         <id>ktlint-format</id>
                         <configuration>
                             <target name="ktlint">
-                                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true"
-                                      classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
-                                    <arg value="-F"/>
-                                    <arg value="src/**/*.kt"/>
+                                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true" classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
+                                    <arg value="-F" />
+                                    <arg value="src/**/*.kt" />
                                 </java>
                             </target>
                         </configuration>
